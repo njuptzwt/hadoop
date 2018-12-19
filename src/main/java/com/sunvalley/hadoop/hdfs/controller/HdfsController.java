@@ -22,6 +22,7 @@ import java.util.Map;
 @RequestMapping("/hadoop/hdfs")
 public class HdfsController {
 
+
     /**
      * 创建文件夹
      *
@@ -71,12 +72,13 @@ public class HdfsController {
     /**
      * 创建文件
      *
-     * @param path
+     * @param
      * @return
      * @throws Exception
      */
     @PostMapping("/createFile")
-    public BaseReturnVO createFile(@RequestParam("path") String path, @RequestParam("file") MultipartFile file) throws Exception {
+    public BaseReturnVO createFile( @RequestParam("file") MultipartFile file) throws Exception {
+        String path="/test";
         if (StringUtils.isEmpty(path) || null == file.getBytes()) {
             return new BaseReturnVO("请求参数为空");
         }

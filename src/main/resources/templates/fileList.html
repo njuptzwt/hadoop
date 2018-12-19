@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>FileList</title>
+</head>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<body>
+<form method="POST"  action="/fileList">
+    <p>
+        关键词：<input type="text" name="filename" >
+    </p>
+    <button type="submit">查询</button>
+</form>
+<table>
+    <thead>
+    <tr>
+        <th>文件名</th>
+        <th>文件路径</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="file : ${files}">
+        <td th:text="${file.filename}">文件名</td>
+        <td th:text="${file.filepath}">文件路径</td>
+        <td>
+            <button type="button" th:data-thing="${file.filepath}" onclick="javascript:download(this.getAttribute('data-thing'));">下载</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<script type="text/javascript">
+    function download(downloadpath) {
+        console.log(downloadpath);
+        console.log("hahahhahah");
+        var post_data={"downloadpath": downloadpath};
+        $.ajax({
+            url: "http://localhost:9000/file/download",
+            type: 'post',
+            contentType: "application/json; charset=utf-8",
+            data:JSON.stringify(post_data),
+            success:function (data) {
+                alert("下载成功");
+            },
+            error: function(data, textStatus, errorThrown){
+                //调用失败
+                alert("下载失败");
+            }
+        });
+    }
+</script>
+</body>
+</html>
